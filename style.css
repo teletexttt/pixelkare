@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Chicago', 'Monaco', 'Courier New', monospace;
+    font-family: 'Courier New', 'Monaco', monospace;
     image-rendering: pixelated;
 }
 
@@ -15,12 +15,6 @@ body {
     overflow-x: hidden;
     height: 100vh;
     touch-action: manipulation;
-}
-
-/* Fuente Chicago (estilo Macintosh) */
-@font-face {
-    font-family: 'Chicago';
-    src: url('https://fonts.cdnfonts.com/css/chicago-2');
 }
 
 /* Contenedor principal */
@@ -46,31 +40,54 @@ body {
     flex-wrap: wrap;
 }
 
+.header-left, .header-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
 .header-center {
     text-align: center;
-    flex-grow: 1;
-    margin: 0 10px;
+    flex-grow: 2;
 }
 
-.header-center h1 {
+.logo-pixelkare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.logo-canvas {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    border: 2px solid #ffff00;
+    background: #000;
+}
+
+.logo-text {
+    font-family: 'Courier New', monospace;
     color: #ffff00;
-    text-shadow: 0 0 8px #ff0;
-    font-size: clamp(18px, 4vw, 24px);
-    font-family: 'Chicago', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.2;
 }
 
-.subtitle {
-    font-size: clamp(10px, 2vw, 12px);
+.logo-subtext {
+    font-size: 10px;
     color: #80d8ff;
-    margin-top: 2px;
+    display: block;
+    letter-spacing: 1px;
 }
 
 .page-indicator, .time-display, .status-indicator {
     background: #000;
-    padding: 4px 8px;
+    padding: 6px 10px;
     border: 2px solid #80d8ff;
     border-radius: 4px;
-    font-size: clamp(10px, 2vw, 14px);
+    font-size: 14px;
     white-space: nowrap;
 }
 
@@ -82,7 +99,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
-    display: none;
+    margin-left: 10px;
 }
 
 /* Área principal responsive */
@@ -116,28 +133,28 @@ body {
 .panel-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: #1a237e;
     color: #80d8ff;
-    padding: 8px;
+    padding: 10px;
     border-bottom: 2px solid #2962ff;
     font-weight: bold;
     flex-wrap: wrap;
+    min-height: 50px;
 }
 
 .panel-title {
     color: #ffff00;
-    font-size: clamp(12px, 2.5vw, 16px);
-}
-
-.kare-icon {
-    font-size: 18px;
-    margin-right: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .panel-info {
     display: flex;
-    gap: 10px;
-    font-size: clamp(10px, 2vw, 14px);
+    gap: 15px;
+    font-size: 14px;
     flex-wrap: wrap;
 }
 
@@ -164,20 +181,11 @@ body {
     touch-action: none;
 }
 
-.canvas-overlay {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 10px;
-    pointer-events: none;
-}
-
 .canvas-controls {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding: 12px;
+    gap: 10px;
+    padding: 15px;
     background: #111;
     border-top: 2px solid #333;
 }
@@ -195,7 +203,7 @@ body {
     flex-direction: column;
     background: #000;
     border: 4px solid #333;
-    min-width: 250px;
+    min-width: 280px;
     overflow-y: auto;
 }
 
@@ -209,10 +217,11 @@ body {
         position: fixed;
         top: 0;
         right: 0;
-        width: 80%;
+        width: 85%;
         height: 100%;
         z-index: 1000;
         background: #000;
+        border-left: 6px solid #2962ff;
     }
 }
 
@@ -234,17 +243,17 @@ body {
 .bio-text {
     color: #80d8ff;
     font-size: 12px;
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
     padding: 15px;
 }
 
-.kare-tool {
+.tool-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -255,15 +264,15 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     border-radius: 6px;
+    min-height: 70px;
 }
 
-.kare-tool:hover {
+.tool-btn:hover {
     background: #2962ff;
     color: #fff;
-    transform: translateY(-2px);
 }
 
-.kare-tool.active {
+.tool-btn.active {
     background: #ffff00;
     color: #000;
     border-color: #ffd600;
@@ -275,16 +284,33 @@ body {
 }
 
 .tool-label {
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
+    font-weight: bold;
 }
 
-/* Paleta Kare */
-.kare-palette {
+/* Paleta de colores */
+.palette-grid {
+    padding: 10px;
+}
+
+.palette-section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #ffff00;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.colors-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    padding: 10px;
+    padding: 0 10px;
 }
 
 .color-btn {
@@ -296,7 +322,7 @@ body {
 }
 
 .color-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     border-color: #fff;
 }
 
@@ -308,25 +334,32 @@ body {
 .current-colors {
     padding: 15px;
     background: #111;
-    margin-top: auto;
-    border-top: 2px solid #333;
+    margin: 10px;
+    border-radius: 8px;
+    border: 2px solid #333;
 }
 
 .color-display {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+}
+
+.color-label {
+    color: #80d8ff;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .color-preview {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
 }
 
-.kare-color-box {
-    width: 50px;
-    height: 50px;
+.color-box {
+    width: 60px;
+    height: 60px;
     border: 3px solid #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
@@ -335,7 +368,8 @@ body {
 .color-names {
     text-align: center;
     color: #80d8ff;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 /* Botones presets */
@@ -344,6 +378,7 @@ body {
     gap: 10px;
     padding: 15px;
     flex-wrap: wrap;
+    margin-top: auto;
 }
 
 .preset-btn {
@@ -352,11 +387,12 @@ body {
     background: #2962ff;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px 8px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
     transition: all 0.2s;
+    font-weight: bold;
 }
 
 .preset-btn:hover {
@@ -371,33 +407,32 @@ body {
     background: #1a237e;
     border-top: 4px solid #2962ff;
     margin-top: 8px;
-    padding: 8px;
+    padding: 10px;
 }
 
 .shortcuts {
     display: flex;
     justify-content: space-around;
-    color: #80d8ff;
-    font-weight: bold;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #0d47a1;
     flex-wrap: wrap;
     gap: 10px;
-    font-size: clamp(10px, 2vw, 12px);
+    color: #80d8ff;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0d47a1;
+    font-size: 13px;
 }
 
 .message-line {
     color: #ffff00;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     font-weight: bold;
-    text-transform: uppercase;
     background: #000;
-    margin-top: 4px;
+    margin-top: 8px;
     border: 2px solid #333;
     border-radius: 4px;
-    font-size: clamp(11px, 2.5vw, 14px);
-    min-height: 40px;
+    font-size: 14px;
+    min-height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -407,54 +442,55 @@ body {
     display: none;
     color: #80d8ff;
     text-align: center;
-    padding: 6px;
-    font-size: 12px;
+    padding: 8px;
+    font-size: 13px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 4px;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 @media (max-width: 767px) {
     .mobile-hint {
         display: block;
     }
+    
+    .logo-text {
+        font-size: 16px;
+    }
+    
+    .logo-subtext {
+        font-size: 9px;
+    }
 }
 
 /* Botones generales */
-.teletext-btn, .kare-btn {
+.teletext-btn {
     background: #1a237e;
     color: #80d8ff;
     border: 2px solid #2962ff;
-    padding: 10px 16px;
+    padding: 12px 8px;
     cursor: pointer;
     font-weight: bold;
-    text-transform: uppercase;
-    font-size: clamp(11px, 2vw, 14px);
-    transition: all 0.2s;
     border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+    min-height: 44px;
 }
 
-.teletext-btn:hover, .kare-btn:hover {
+.teletext-btn:hover {
     background: #2962ff;
     color: #fff;
-    border-color: #80d8ff;
-    box-shadow: 0 0 8px #80d8ff;
 }
 
-.teletext-btn:active, .kare-btn:active {
-    background: #0d47a1;
-    transform: translateY(2px);
-}
-
-/* Modales */
-.modal-overlay, .mobile-modal {
+/* Modales móviles */
+.mobile-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -482,12 +518,23 @@ body {
     border-bottom: 2px solid #2962ff;
 }
 
+.mobile-modal-header h3 {
+    color: #ffff00;
+    font-size: 20px;
+}
+
 .close-modal {
     background: none;
     border: none;
     color: #80d8ff;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobile-tools-list, .mobile-colors-list {
@@ -506,6 +553,8 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
+    min-height: 90px;
+    justify-content: center;
 }
 
 .mobile-tool-item:hover, .mobile-color-item:hover {
@@ -517,8 +566,8 @@ body {
 .mobile-menu-btn {
     display: none;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     z-index: 1001;
     background: #1a237e;
     padding: 12px;
@@ -543,17 +592,18 @@ body {
     left: 50%;
     transform: translateX(-50%);
     background: rgba(26, 35, 126, 0.95);
-    padding: 15px;
+    padding: 15px 20px;
     border-radius: 20px;
     border: 3px solid #2962ff;
     z-index: 1000;
     backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .mobile-tools {
     display: flex;
     gap: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     justify-content: center;
 }
 
@@ -564,30 +614,34 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
 }
 
 .mobile-tool-btn.active {
     background: #ffff00;
     color: #000;
+    transform: scale(1.1);
 }
 
 .mobile-colors {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     justify-content: center;
 }
 
 .color-btn-mobile {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 3px solid transparent;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .color-btn-mobile.active {
@@ -596,25 +650,26 @@ body {
 }
 
 @media (max-width: 767px) {
-    .mobile-menu-btn {
+    .mobile-menu-btn, .mobile-toolbar {
         display: flex;
     }
     
-    .mobile-toolbar {
-        display: block;
+    .header-center .logo-pixelkare {
+        flex-direction: column;
+        gap: 5px;
     }
     
-    .header-center .subtitle {
-        display: none;
+    .logo-text {
+        font-size: 14px;
+        text-align: center;
     }
     
-    .canvas-controls button {
-        padding: 8px;
-        font-size: 11px;
+    .logo-subtext {
+        font-size: 8px;
     }
 }
 
-/* Colores Kare */
+/* Colores */
 .color-black { background: #000000; }
 .color-red { background: #ff3b30; }
 .color-green { background: #4cd964; }
@@ -624,26 +679,7 @@ body {
 .color-cyan { background: #5ac8fa; }
 .color-white { background: #ffffff; }
 
-/* Animaciones */
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.blink {
-    animation: blink 1s infinite;
-}
-
-.slide-in {
-    animation: slideIn 0.3s ease-out;
-}
-
-/* Scrollbar personalizada */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -661,21 +697,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #1a237e;
 }
-
-/* Touch optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .teletext-btn, .kare-btn, .tool-btn {
-        min-height: 44px;
-        min-width: 44px;
-    }
-    
-    .color-btn {
-        min-height: 44px;
-        min-width: 44px;
-    }
-    
-    .canvas-controls {
-        gap: 12px;
-        padding: 15px;
-    }
-                }
