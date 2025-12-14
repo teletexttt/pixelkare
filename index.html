@@ -3,23 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixelcare</title>
+    <title>PixelCare - Teletext Paint en homenaje a Susan Kare</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/icon.png" type="image/png">
+    <meta name="description" content="Editor pixel art teletext en homenaje a Susan Kare">
 </head>
 <body>
+    <!-- Menú móvil -->
+    <div class="mobile-menu-btn" id="mobile-menu-btn">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+    </div>
+    
+    <div class="mobile-toolbar" id="mobile-toolbar">
+        <div class="mobile-tools">
+            <button class="mobile-tool-btn" data-tool="brush">✏️</button>
+            <button class="mobile-tool-btn" data-tool="eraser">🧹</button>
+            <button class="mobile-tool-btn" data-tool="fill">🎨</button>
+            <button class="mobile-tool-btn active" data-tool="brush">⬜</button>
+        </div>
+        <div class="mobile-colors">
+            <div class="color-btn-mobile color-white" data-color="7"></div>
+            <div class="color-btn-mobile color-red" data-color="1"></div>
+            <div class="color-btn-mobile color-green" data-color="2"></div>
+            <div class="color-btn-mobile color-blue" data-color="4"></div>
+        </div>
+    </div>
+
     <div class="teletext-container">
-        <!-- Cabecera estilo teletext -->
+        <!-- Cabecera -->
         <div class="header">
             <div class="header-left">
-                <span class="page-indicator">Pág 100</span>
-                <span class="time-display" id="time-display">18:45</span>
+                <span class="page-indicator">Pág 1984</span>
+                <span class="time-display" id="time-display">09:41</span>
             </div>
             <div class="header-center">
                 <h1>PIXELCARE v1.0</h1>
+                <div class="subtitle">En homenaje a Susan Kare</div>
             </div>
             <div class="header-right">
-                <span class="status-indicator" id="status-indicator">● EN LÍNEA</span>
+                <span class="status-indicator" id="status-indicator">● PIXEL</span>
+                <button class="responsive-toggle" id="responsive-toggle">📱</button>
             </div>
         </div>
         
@@ -28,55 +53,90 @@
             <!-- Panel de lienzo -->
             <div class="canvas-panel">
                 <div class="panel-header">
-                    <div class="panel-title">LIENZO TELETEXT</div>
+                    <div class="panel-title">
+                        <span class="kare-icon">⌘</span> LIENZO PIXELCARE
+                    </div>
                     <div class="panel-info">
                         <span id="cursor-pos">X: 0, Y: 0</span>
-                        <span id="tool-indicator">HERRAMIENTA: PINCEL</span>
+                        <span id="tool-indicator">PINCEL</span>
+                        <span id="resolution-indicator">40×25</span>
                     </div>
                 </div>
                 <div class="canvas-container">
-                    <canvas id="main-canvas" width="640" height="400"></canvas>
-                    <div class="grid-overlay" id="grid-overlay"></div>
+                    <canvas id="main-canvas"></canvas>
+                    <div class="canvas-overlay">
+                        <div class="kare-quote">"Good design is good will" - Susan Kare</div>
+                    </div>
                 </div>
                 <div class="canvas-controls">
-                    <button id="btn-clear" class="teletext-btn">BORRAR TODO</button>
-                    <button id="btn-grid" class="teletext-btn">REJILLA ON/OFF</button>
-                    <button id="btn-export" class="teletext-btn">EXPORTAR</button>
+                    <button id="btn-clear" class="teletext-btn">⌫ BORRAR</button>
+                    <button id="btn-grid" class="teletext-btn"># REJILLA</button>
+                    <button id="btn-undo" class="teletext-btn">↶ DESHACER</button>
+                    <button id="btn-export" class="teletext-btn">💾 EXPORTAR</button>
                 </div>
             </div>
             
-            <!-- Panel de herramientas -->
-            <div class="tools-panel">
+            <!-- Panel de herramientas (oculto en móvil) -->
+            <div class="tools-panel" id="tools-panel">
                 <div class="panel-header">
-                    <div class="panel-title">HERRAMIENTAS</div>
-                </div>
-                <div class="tools-grid">
-                    <button class="tool-btn active" data-tool="brush">PINCEL (B)</button>
-                    <button class="tool-btn" data-tool="eraser">BORRADOR (E)</button>
-                    <button class="tool-btn" data-tool="line">LÍNEA (L)</button>
-                    <button class="tool-btn" data-tool="rect">RECTÁNGULO (R)</button>
-                    <button class="tool-btn" data-tool="circle">CÍRCULO (C)</button>
-                    <button class="tool-btn" data-tool="fill">RELLENO (F)</button>
-                    <button class="tool-btn" data-tool="text">TEXTO (T)</button>
-                    <button class="tool-btn" data-tool="select">SELECCIONAR (S)</button>
+                    <div class="panel-title">HERRAMIENTAS MACINTOSH</div>
                 </div>
                 
+                <div class="kare-bio">
+                    <div class="bio-title">Susan Kare (1954)</div>
+                    <div class="bio-text">Diseñadora de iconos para Apple Macintosh (1984) y Microsoft Windows. Creó el smiley, la mano, el reloj y otros iconos icónicos.</div>
+                </div>
+                
+                <div class="tools-grid">
+                    <button class="tool-btn kare-tool active" data-tool="brush">
+                        <div class="tool-icon">✏️</div>
+                        <div class="tool-label">Pincel (B)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="eraser">
+                        <div class="tool-icon">🧹</div>
+                        <div class="tool-label">Borrador (E)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="line">
+                        <div class="tool-icon">📏</div>
+                        <div class="tool-label">Línea (L)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="rect">
+                        <div class="tool-icon">⬜</div>
+                        <div class="tool-label">Rectángulo (R)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="circle">
+                        <div class="tool-icon">⭕</div>
+                        <div class="tool-label">Círculo (C)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="fill">
+                        <div class="tool-icon">🎨</div>
+                        <div class="tool-label">Relleno (F)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="text">
+                        <div class="tool-icon">🔤</div>
+                        <div class="tool-label">Texto (T)</div>
+                    </button>
+                    <button class="tool-btn kare-tool" data-tool="select">
+                        <div class="tool-icon">✋</div>
+                        <div class="tool-label">Mano (S)</div>
+                    </button>
+                </div>
+                
+                <!-- Paleta Kare (colores Macintosh original) -->
                 <div class="panel-header">
-                    <div class="panel-title">PALETA TELETEXT</div>
+                    <div class="panel-title">PALETA MACINTOSH 1-BIT</div>
                 </div>
                 <div class="palette-grid">
-                    <!-- Colores de frente -->
                     <div class="palette-section">
                         <div class="section-title">COLOR FRENTE</div>
-                        <div class="colors-grid" id="fg-colors">
+                        <div class="colors-grid kare-palette" id="fg-colors">
                             <!-- Generado por JS -->
                         </div>
                     </div>
                     
-                    <!-- Colores de fondo -->
                     <div class="palette-section">
                         <div class="section-title">COLOR FONDO</div>
-                        <div class="colors-grid" id="bg-colors">
+                        <div class="colors-grid kare-palette" id="bg-colors">
                             <!-- Generado por JS -->
                         </div>
                     </div>
@@ -85,9 +145,21 @@
                 <div class="current-colors">
                     <div class="color-display">
                         <div class="color-label">ACTUAL:</div>
-                        <div class="color-box" id="current-fg"></div>
-                        <div class="color-box" id="current-bg"></div>
+                        <div class="color-preview">
+                            <div class="color-box kare-color-box" id="current-fg"></div>
+                            <div class="color-box kare-color-box" id="current-bg"></div>
+                        </div>
+                        <div class="color-names">
+                            <span id="fg-color-name">Blanco</span> / 
+                            <span id="bg-color-name">Negro</span>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-preset="smiley">😊 Smiley</button>
+                    <button class="preset-btn" data-preset="mac">🍎 Mac</button>
+                    <button class="preset-btn" data-preset="hand">✋ Mano</button>
                 </div>
             </div>
         </div>
@@ -95,32 +167,60 @@
         <!-- Panel inferior -->
         <div class="footer">
             <div class="shortcuts">
-                <span>F1:AYUDA</span>
-                <span>F2:GUARDAR</span>
-                <span>F3:CARGAR</span>
-                <span>F4:EXPORTAR PNG</span>
-                <span>F5:RESET</span>
-                <span>F6:MODO PARPADEO</span>
-                <span>F7:OCULTAR/REVELAR</span>
+                <span>⌘B: PINCEL</span>
+                <span>⌘E: BORRAR</span>
+                <span>⌘Z: DESHACER</span>
+                <span>⌘S: GUARDAR</span>
+                <span>⌘E: EXPORTAR</span>
+                <span>⌘G: REJILLA</span>
             </div>
             <div class="message-line" id="message-line">
-                BIENVENIDO A PIXELCARE. UTILICE LAS TECLAS O RATÓN.
+                PIXELCARE - HOMENAJE A SUSAN KARE. CREA ICONOS PIXEL ART.
+            </div>
+            <div class="mobile-hint" id="mobile-hint">
+                👆 Toca para dibujar • 📱 Usa dos dedos para mover
             </div>
         </div>
     </div>
     
-    <!-- Overlay para texto -->
+    <!-- Modal para texto -->
     <div id="text-input-overlay" class="modal-overlay">
         <div class="modal-content">
-            <h3>INGRESAR TEXTO TELETEXT</h3>
-            <input type="text" id="text-input" maxlength="20" placeholder="Texto (max 20 chars)">
+            <h3>✏️ TEXTO PIXELCARE</h3>
+            <input type="text" id="text-input" maxlength="20" placeholder="Escribe como Susan Kare...">
             <div class="modal-buttons">
-                <button id="btn-text-ok">ACEPTAR</button>
-                <button id="btn-text-cancel">CANCELAR</button>
+                <button id="btn-text-ok" class="kare-btn">✅ ACEPTAR</button>
+                <button id="btn-text-cancel" class="kare-btn">❌ CANCELAR</button>
             </div>
         </div>
     </div>
     
+    <!-- Modal móvil de herramientas -->
+    <div class="mobile-modal" id="mobile-tools-modal">
+        <div class="mobile-modal-content">
+            <div class="mobile-modal-header">
+                <h3>🎨 HERRAMIENTAS</h3>
+                <button class="close-modal">✕</button>
+            </div>
+            <div class="mobile-tools-list" id="mobile-tools-list">
+                <!-- Generado por JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal móvil de colores -->
+    <div class="mobile-modal" id="mobile-colors-modal">
+        <div class="mobile-modal-content">
+            <div class="mobile-modal-header">
+                <h3>🌈 COLORES</h3>
+                <button class="close-modal">✕</button>
+            </div>
+            <div class="mobile-colors-list" id="mobile-colors-list">
+                <!-- Generado por JS -->
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
