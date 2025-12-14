@@ -168,7 +168,8 @@ const toolIndicator = document.getElementById('tool-indicator');
 const messageLine = document.getElementById('message-line');
 const timeDisplay = document.getElementById('time-display');
 const statusIndicator = document.getElementById('status-indicator');
-const resolutionIndicator = document.getElementById('resolution-indicator');
+const colorIndicator = document.getElementById('color-indicator');
+const resolutionDisplay = document.getElementById('resolution-display');
 const mobileHint = document.getElementById('mobile-hint');
 const responsiveToggle = document.getElementById('responsive-toggle');
 const toolsPanel = document.getElementById('tools-panel');
@@ -220,7 +221,7 @@ function detectMobile() {
         CONFIG.rows = 25;
     }
     
-    resolutionIndicator.textContent = `${CONFIG.cols}×${CONFIG.rows}`;
+    resolutionDisplay.textContent = `${CONFIG.cols}×${CONFIG.rows}`;
 }
 
 function setupCanvas() {
@@ -272,7 +273,7 @@ function createLogo() {
     logoCtx.fillRect(0, 0, 64, 64);
     
     // Logo estilo Susan Kare: Cara pixelada
-    logoCtx.fillStyle = '#ffff00'; // Amarillo Teletext
+    logoCtx.fillStyle = '#ffff00';
     
     // Cara básica (8x8 pixels escalados)
     const face = [
@@ -295,7 +296,7 @@ function createLogo() {
     }
     
     // Texto "KARE" en pixel art
-    logoCtx.fillStyle = '#00ffff'; // Cian
+    logoCtx.fillStyle = '#00ffff';
     const kareText = [
         [1,0,0,1,0,0,1,0],
         [1,0,1,0,0,1,0,0],
@@ -314,7 +315,7 @@ function createLogo() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#00ffff'; // Cian Teletext
+    ctx.strokeStyle = '#00ffff';
     ctx.lineWidth = 1;
     
     for (let x = 0; x <= CONFIG.cols; x++) {
@@ -412,6 +413,9 @@ function updatePaletteDisplay() {
     currentBg.className = `teletext-color-box color-${state.colors[state.bgColor].name}`;
     fgColorName.textContent = state.colors[state.fgColor].display;
     bgColorName.textContent = state.colors[state.bgColor].display;
+    
+    // Actualizar indicador de color
+    colorIndicator.style.color = state.colors[state.fgColor].hex;
     
     document.querySelectorAll('#fg-colors .teletext-color-btn').forEach(btn => {
         btn.classList.toggle('selected', parseInt(btn.dataset.index) === state.fgColor);
@@ -1078,53 +1082,8 @@ function exportCanvas(includeGrid = true) {
     exportCanvas.height = CONFIG.rows * CONFIG.gridSize;
     const exportCtx = exportCanvas.getContext('2d');
     
-    // Fondo
-    exportCtx.fillStyle = state.colors[state.bgColor].hex;
-    exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
-    
-    // Píxeles
-    for (let y = 0; y < CONFIG.rows; y++) {
-        for (let x = 0; x < CONFIG.cols; x++) {
-            const cell = state.gridData[y][x];
-            if (cell.fg !== state.bgColor) {
-                exportCtx.fillStyle = state.colors[cell.bg].hex;
-                exportCtx.fillRect(
-                    x * CONFIG.gridSize, 
-                    y * CONFIG.gridSize, 
-                    CONFIG.gridSize, 
-                    CONFIG.gridSize
-                );
-                
-                exportCtx.fillStyle = state.colors[cell.fg].hex;
-                exportCtx.fillRect(
-                    x * CONFIG.gridSize + 1, 
-                    y * CONFIG.gridSize + 1, 
-                    CONFIG.gridSize - 2, 
-                    CONFIG.gridSize - 2
-                );
-            }
-        }
-    }
-    
-    // Rejilla
-    if (includeGrid && state.showGrid) {
-        exportCtx.strokeStyle = '#00ffff';
-        exportCtx.lineWidth = 1;
-        
-        for (let x = 0; x <= CONFIG.cols; x++) {
-            exportCtx.beginPath();
-            exportCtx.moveTo(x * CONFIG.gridSize, 0);
-            exportCtx.lineTo(x * CONFIG.gridSize, exportCanvas.height);
-            exportCtx.stroke();
-        }
-        
-        for (let y = 0; y <= CONFIG.rows; y++) {
-            exportCtx.beginPath();
-            exportCtx.moveTo(0, y * CONFIG.gridSize);
-            exportCtx.lineTo(exportCanvas.width, y * CONFIG.gridSize);
-            exportCtx.stroke();
-        }
-    }
+    // Copiar contenido del canvas (sin overlay)
+    exportCtx.drawImage(canvas, 0, 0);
     
     const link = document.createElement('a');
     link.download = `pixelkare-${new Date().getTime()}.png`;
@@ -1203,7 +1162,6 @@ function handleKeyPress(e) {
         showMessage('■ AYUDA: B=PINCEL E=BORRAR L=LÍNEA R=RECT C=CÍRCULO F=RELLENO 1-8=COLORES ■');
     }
     if (e.key === 'F2') {
-        // Función para guardar proyecto
         showMessage('■ GUARDAR PROYECTO (PRÓXIMAMENTE) ■');
     }
     if (e.key === 'F4') {
@@ -1254,7 +1212,7 @@ function toggleResponsive() {
         mobileMenuBtn.style.display = 'flex';
     }
     
-    resolutionIndicator.textContent = `${CONFIG.cols}×${CONFIG.rows}`;
+    resolutionDisplay.textContent = `${CONFIG.cols}×${CONFIG.rows}`;
     setupCanvas();
     showMessage(`■ MODO: ${CONFIG.isMobile ? 'MÓVIL' : 'ESCRITORIO'} ■`);
 }
