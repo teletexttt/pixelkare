@@ -1,9 +1,12 @@
-/* Reset y fuente retro */
+/* =========================================== */
+/* ESTILO TELETEXT EXACTO - PALETA 8 COLORES */
+/* =========================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Courier New', 'Monaco', monospace;
+    font-family: 'VT323', 'Courier New', monospace;
     image-rendering: pixelated;
 }
 
@@ -11,32 +14,32 @@ body {
     background: #000;
     color: #fff;
     font-size: 16px;
-    line-height: 1.4;
+    line-height: 1;
     overflow-x: hidden;
     height: 100vh;
     touch-action: manipulation;
 }
 
-/* Contenedor principal */
+/* Contenedor principal estilo Teletext */
 .teletext-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(135deg, #000 0%, #111 100%);
-    padding: 4px;
-    position: relative;
+    background: #000;
+    border: 6px solid #00f;
+    padding: 2px;
 }
 
-/* Cabecera responsive */
+/* Cabecera Teletext */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1a237e;
-    color: #80d8ff;
-    padding: 8px 16px;
-    border-bottom: 4px solid #2962ff;
-    margin-bottom: 8px;
+    background: #00f;
+    color: #0ff;
+    padding: 6px 10px;
+    border-bottom: 4px solid #0ff;
+    margin-bottom: 4px;
     flex-wrap: wrap;
 }
 
@@ -55,60 +58,70 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo-canvas {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     image-rendering: pixelated;
-    border: 2px solid #ffff00;
+    border: 3px solid #0ff;
     background: #000;
 }
 
 .logo-text {
-    font-family: 'Courier New', monospace;
-    color: #ffff00;
-    font-size: 20px;
-    font-weight: bold;
+    font-family: 'VT323', monospace;
+    color: #ff0;
+    font-size: 28px;
+    font-weight: normal;
     text-align: left;
-    line-height: 1.2;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.logo-kare {
+    color: #0ff;
 }
 
 .logo-subtext {
-    font-size: 10px;
-    color: #80d8ff;
+    font-size: 12px;
+    color: #f0f;
     display: block;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    margin-top: 2px;
 }
 
 .page-indicator, .time-display, .status-indicator {
     background: #000;
-    padding: 6px 10px;
-    border: 2px solid #80d8ff;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border: 2px solid #0ff;
     font-size: 14px;
     white-space: nowrap;
 }
 
 .responsive-toggle {
-    background: #2962ff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
+    background: #00f;
+    color: #0ff;
+    border: 2px solid #0ff;
+    padding: 4px 8px;
     cursor: pointer;
     font-size: 18px;
-    margin-left: 10px;
+    margin-left: 8px;
+    font-family: 'VT323', monospace;
 }
 
-/* Área principal responsive */
+.responsive-toggle:hover {
+    background: #0ff;
+    color: #00f;
+}
+
+/* Área principal */
 .main-area {
     display: flex;
     flex: 1;
-    gap: 16px;
-    padding: 8px;
-    background: #111;
+    gap: 8px;
+    padding: 4px;
+    background: #000;
     overflow: hidden;
     flex-direction: column;
 }
@@ -119,13 +132,13 @@ body {
     }
 }
 
-/* Panel del lienzo responsive */
+/* Panel del lienzo */
 .canvas-panel {
     flex: 3;
     display: flex;
     flex-direction: column;
     background: #000;
-    border: 4px solid #333;
+    border: 3px solid #00f;
     min-height: 300px;
     overflow: hidden;
 }
@@ -134,26 +147,29 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1a237e;
-    color: #80d8ff;
-    padding: 10px;
-    border-bottom: 2px solid #2962ff;
-    font-weight: bold;
+    background: #00f;
+    color: #0ff;
+    padding: 6px 10px;
+    border-bottom: 2px solid #0ff;
     flex-wrap: wrap;
-    min-height: 50px;
+    min-height: 40px;
 }
 
 .panel-title {
-    color: #ffff00;
+    color: #ff0;
     font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+}
+
+.kare-icon {
+    color: #f0f;
 }
 
 .panel-info {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     font-size: 14px;
     flex-wrap: wrap;
 }
@@ -165,14 +181,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 8px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 #main-canvas {
     background: #000;
-    border: 2px solid #333;
+    border: 2px solid #0ff;
     cursor: crosshair;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
@@ -181,13 +197,40 @@ body {
     touch-action: none;
 }
 
+.teletext-overlay {
+    position: absolute;
+    pointer-events: none;
+}
+
+.teletext-corner {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #0ff;
+    font-size: 10px;
+    background: #000;
+    padding: 2px 4px;
+    border: 1px solid #0ff;
+}
+
+.kare-quote {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: #f0f;
+    font-size: 10px;
+    background: #000;
+    padding: 2px 4px;
+    border: 1px solid #f0f;
+}
+
 .canvas-controls {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    padding: 15px;
-    background: #111;
-    border-top: 2px solid #333;
+    gap: 8px;
+    padding: 10px;
+    background: #000;
+    border-top: 2px solid #00f;
 }
 
 @media (max-width: 480px) {
@@ -196,13 +239,13 @@ body {
     }
 }
 
-/* Panel de herramientas responsive */
+/* Panel de herramientas */
 .tools-panel {
     flex: 1;
     display: flex;
     flex-direction: column;
     background: #000;
-    border: 4px solid #333;
+    border: 3px solid #00f;
     min-width: 280px;
     overflow-y: auto;
 }
@@ -221,232 +264,258 @@ body {
         height: 100%;
         z-index: 1000;
         background: #000;
-        border-left: 6px solid #2962ff;
+        border-left: 4px solid #0ff;
     }
 }
 
 .kare-bio {
-    background: #0d47a1;
-    padding: 12px;
-    margin: 10px;
-    border-radius: 8px;
-    border: 2px solid #2962ff;
+    background: #000;
+    padding: 10px;
+    margin: 8px;
+    border: 2px solid #f0f;
 }
 
 .bio-title {
-    color: #ffff00;
+    color: #ff0;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     font-size: 14px;
 }
 
 .bio-text {
-    color: #80d8ff;
+    color: #0ff;
     font-size: 12px;
-    line-height: 1.4;
+    line-height: 1.2;
 }
 
+/* Herramientas estilo Teletext */
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 15px;
+    gap: 8px;
+    padding: 10px;
 }
 
-.tool-btn {
+.teletext-tool {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #1a237e;
-    color: #80d8ff;
-    border: 2px solid #2962ff;
-    padding: 12px 8px;
+    background: #000;
+    color: #0ff;
+    border: 2px solid #00f;
+    padding: 10px 6px;
     cursor: pointer;
-    transition: all 0.2s;
-    border-radius: 6px;
+    transition: all 0.1s;
+    border-radius: 0;
     min-height: 70px;
 }
 
-.tool-btn:hover {
-    background: #2962ff;
+.teletext-tool:hover {
+    background: #00f;
     color: #fff;
+    border-color: #0ff;
 }
 
-.tool-btn.active {
-    background: #ffff00;
+.teletext-tool.active {
+    background: #ff0;
     color: #000;
-    border-color: #ffd600;
+    border-color: #ff0;
 }
 
 .tool-icon {
     font-size: 24px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .tool-label {
     font-size: 12px;
-    text-align: center;
     font-weight: bold;
+    margin-bottom: 2px;
 }
 
-/* Paleta de colores */
-.palette-grid {
+.tool-shortcut {
+    font-size: 10px;
+    color: #f0f;
+}
+
+/* Paleta Teletext exacta (8 colores) */
+.palette-teletext {
     padding: 10px;
 }
 
 .palette-section {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .section-title {
-    color: #ffff00;
-    margin-bottom: 10px;
-    font-weight: bold;
+    color: #ff0;
+    margin-bottom: 8px;
     font-size: 14px;
     padding-left: 5px;
 }
 
-.colors-grid {
+.teletext-colors {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 8px;
     padding: 0 10px;
 }
 
-.color-btn {
+.teletext-color-btn {
     aspect-ratio: 1;
-    border: 3px solid #333;
+    border: 2px solid #555;
     cursor: pointer;
     transition: all 0.1s;
-    border-radius: 6px;
 }
 
-.color-btn:hover {
+.teletext-color-btn:hover {
     transform: scale(1.05);
     border-color: #fff;
 }
 
-.color-btn.selected {
-    border-color: #ffff00;
-    box-shadow: 0 0 10px #ffff00;
+.teletext-color-btn.selected {
+    border-color: #ff0;
+    box-shadow: 0 0 8px #ff0;
 }
 
 .current-colors {
-    padding: 15px;
-    background: #111;
-    margin: 10px;
-    border-radius: 8px;
-    border: 2px solid #333;
+    padding: 12px;
+    background: #000;
+    margin: 8px;
+    border: 2px solid #00f;
 }
 
 .color-display {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .color-label {
-    color: #80d8ff;
-    font-weight: bold;
+    color: #0ff;
     font-size: 14px;
+    font-weight: bold;
 }
 
-.color-preview {
+.teletext-color-preview {
     display: flex;
-    gap: 20px;
+    align-items: center;
     justify-content: center;
+    gap: 15px;
 }
 
-.color-box {
-    width: 60px;
-    height: 60px;
+.teletext-color-box {
+    width: 50px;
+    height: 50px;
     border: 3px solid #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.color-symbol {
+    color: #f0f;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .color-names {
     text-align: center;
-    color: #80d8ff;
-    font-size: 13px;
+    color: #0ff;
+    font-size: 12px;
     font-weight: bold;
 }
 
-/* Botones presets */
-.preset-buttons {
-    display: flex;
+/* Iconos de Susan Kare */
+.kare-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    padding: 15px;
-    flex-wrap: wrap;
+    padding: 12px;
     margin-top: auto;
 }
 
-.preset-btn {
-    flex: 1;
-    min-width: 80px;
-    background: #2962ff;
-    color: white;
-    border: none;
-    padding: 12px 8px;
-    border-radius: 6px;
+.kare-icon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #000;
+    border: 2px solid #f0f;
+    padding: 10px 5px;
     cursor: pointer;
-    font-size: 13px;
     transition: all 0.2s;
+}
+
+.kare-icon-btn:hover {
+    background: #f0f;
+    border-color: #ff0;
+}
+
+.icon-preview {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    margin-bottom: 5px;
+    background: #000;
+    border: 1px solid #0ff;
+}
+
+.icon-label {
+    color: #0ff;
+    font-size: 10px;
     font-weight: bold;
+    text-align: center;
 }
 
-.preset-btn:hover {
-    background: #1a237e;
-    transform: translateY(-2px);
-}
-
-/* Footer responsive */
+/* Footer Teletext */
 .footer {
     display: flex;
     flex-direction: column;
-    background: #1a237e;
-    border-top: 4px solid #2962ff;
-    margin-top: 8px;
-    padding: 10px;
+    background: #00f;
+    border-top: 4px solid #0ff;
+    margin-top: 4px;
+    padding: 6px;
 }
 
-.shortcuts {
+.teletext-shortcuts {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 10px;
-    color: #80d8ff;
+    gap: 8px;
+    color: #0ff;
     font-weight: bold;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #0d47a1;
-    font-size: 13px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #0ff;
+    font-size: 12px;
 }
 
 .message-line {
-    color: #ffff00;
+    color: #ff0;
     text-align: center;
-    padding: 10px;
+    padding: 8px;
     font-weight: bold;
     background: #000;
-    margin-top: 8px;
-    border: 2px solid #333;
-    border-radius: 4px;
+    margin-top: 4px;
+    border: 2px solid #00f;
     font-size: 14px;
-    min-height: 45px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .mobile-hint {
     display: none;
-    color: #80d8ff;
+    color: #0ff;
     text-align: center;
-    padding: 8px;
-    font-size: 13px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    margin-top: 8px;
+    padding: 6px;
+    font-size: 11px;
+    background: #000;
+    border: 1px solid #00f;
+    margin-top: 4px;
 }
 
 @media (max-width: 767px) {
@@ -455,7 +524,7 @@ body {
     }
     
     .logo-text {
-        font-size: 16px;
+        font-size: 18px;
     }
     
     .logo-subtext {
@@ -463,23 +532,24 @@ body {
     }
 }
 
-/* Botones generales */
+/* Botones Teletext */
 .teletext-btn {
-    background: #1a237e;
-    color: #80d8ff;
-    border: 2px solid #2962ff;
-    padding: 12px 8px;
+    background: #000;
+    color: #0ff;
+    border: 2px solid #00f;
+    padding: 10px 6px;
     cursor: pointer;
     font-weight: bold;
-    border-radius: 6px;
     font-size: 14px;
-    transition: all 0.2s;
-    min-height: 44px;
+    transition: all 0.1s;
+    min-height: 40px;
+    font-family: 'VT323', monospace;
 }
 
 .teletext-btn:hover {
-    background: #2962ff;
+    background: #00f;
     color: #fff;
+    border-color: #0ff;
 }
 
 /* Modales móviles */
@@ -494,206 +564,213 @@ body {
     z-index: 2000;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 .mobile-modal-content {
     background: #000;
-    border: 6px solid #2962ff;
-    padding: 20px;
+    border: 4px solid #0ff;
+    padding: 15px;
     width: 90%;
     max-width: 400px;
     max-height: 80vh;
     overflow-y: auto;
-    border-radius: 12px;
-    color: #80d8ff;
+    color: #0ff;
 }
 
 .mobile-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #2962ff;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0ff;
 }
 
-.mobile-modal-header h3 {
-    color: #ffff00;
-    font-size: 20px;
+.modal-title {
+    color: #ff0;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .close-modal {
-    background: none;
-    border: none;
-    color: #80d8ff;
-    font-size: 28px;
+    background: #000;
+    border: 2px solid #0ff;
+    color: #0ff;
+    font-size: 20px;
     cursor: pointer;
     padding: 0;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.close-modal:hover {
+    background: #00f;
+    color: #fff;
+}
+
 .mobile-tools-list, .mobile-colors-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
 .mobile-tool-item, .mobile-color-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px;
-    background: #1a237e;
-    border: 2px solid #2962ff;
-    border-radius: 8px;
+    padding: 12px;
+    background: #000;
+    border: 2px solid #00f;
     cursor: pointer;
-    transition: all 0.2s;
-    min-height: 90px;
+    transition: all 0.1s;
+    min-height: 80px;
     justify-content: center;
 }
 
 .mobile-tool-item:hover, .mobile-color-item:hover {
-    background: #2962ff;
-    transform: scale(1.05);
+    background: #00f;
+    border-color: #0ff;
 }
 
 /* Menú móvil */
 .mobile-menu-btn {
     display: none;
     position: fixed;
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    left: 10px;
     z-index: 1001;
-    background: #1a237e;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #2962ff;
+    background: #00f;
+    padding: 10px;
+    border: 2px solid #0ff;
     cursor: pointer;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .menu-icon {
     width: 25px;
     height: 3px;
-    background: #80d8ff;
-    border-radius: 2px;
+    background: #0ff;
 }
 
 .mobile-toolbar {
     display: none;
     position: fixed;
-    bottom: 20px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(26, 35, 126, 0.95);
-    padding: 15px 20px;
-    border-radius: 20px;
-    border: 3px solid #2962ff;
+    background: rgba(0, 0, 255, 0.9);
+    padding: 12px 16px;
+    border: 3px solid #0ff;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .mobile-tools {
     display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 12px;
     justify-content: center;
 }
 
 .mobile-tool-btn {
-    background: #0d47a1;
-    color: white;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 20px;
-    font-weight: bold;
+    background: #000;
+    color: #0ff;
+    border: 2px solid #00f;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: all 0.1s;
+    font-family: 'VT323', monospace;
 }
 
 .mobile-tool-btn.active {
-    background: #ffff00;
+    background: #ff0;
     color: #000;
-    transform: scale(1.1);
+    border-color: #ff0;
 }
 
 .mobile-colors {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     justify-content: center;
 }
 
 .color-btn-mobile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 3px solid transparent;
+    width: 36px;
+    height: 36px;
+    border: 2px solid transparent;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.1s;
 }
 
 .color-btn-mobile.active {
-    border-color: #ffff00;
-    transform: scale(1.2);
+    border-color: #ff0;
+    transform: scale(1.1);
 }
 
 @media (max-width: 767px) {
     .mobile-menu-btn, .mobile-toolbar {
         display: flex;
     }
-    
-    .header-center .logo-pixelkare {
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .logo-text {
-        font-size: 14px;
-        text-align: center;
-    }
-    
-    .logo-subtext {
-        font-size: 8px;
-    }
 }
 
-/* Colores */
+/* =========================================== */
+/* PALETA TELETEXT EXACTA - 8 COLORES */
+/* =========================================== */
+
+/* Teletext Color Standard - 8 colors */
 .color-black { background: #000000; }
-.color-red { background: #ff3b30; }
-.color-green { background: #4cd964; }
-.color-yellow { background: #ffcc00; }
-.color-blue { background: #007aff; }
-.color-magenta { background: #ff2d55; }
-.color-cyan { background: #5ac8fa; }
+.color-red { background: #ff0000; }
+.color-green { background: #00ff00; }
+.color-yellow { background: #ffff00; }
+.color-blue { background: #0000ff; }
+.color-magenta { background: #ff00ff; }
+.color-cyan { background: #00ffff; }
 .color-white { background: #ffffff; }
 
-/* Scrollbar */
+/* Símbolos Teletext */
+.teletext-symbol {
+    font-family: 'VT323', monospace;
+}
+
+/* Scrollbar estilo Teletext */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #111;
+    background: #000;
+    border: 1px solid #00f;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #2962ff;
-    border-radius: 4px;
+    background: #00f;
+    border: 1px solid #0ff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #1a237e;
+    background: #0ff;
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .teletext-btn, .teletext-tool, .kare-icon-btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+    
+    .teletext-color-btn, .color-btn-mobile {
+        min-height: 44px;
+        min-width: 44px;
+    }
 }
