@@ -95,6 +95,7 @@ body {
     font-size: 14px;
 }
 
+
 .canvas-container {
     flex: 1;
     position: relative;
@@ -104,6 +105,8 @@ body {
     justify-content: center;
     padding: 20px;
 }
+
+
 
 #main-canvas {
     background: #000;
